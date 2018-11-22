@@ -1681,6 +1681,18 @@ These plugins provide new markers or news ways of converting abstract data into 
 			<a href="https://github.com/IvanSanchez">Iván Sánchez</a>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/nuclearsecrecy/Leaflet.greatCircle">Leaflet.greatCircle</a>
+		</td>
+		<td>
+			A wrapper class for the Leaflet.js Polygon object that draws true "great circles" (showing true geodesic, spherical paths) that wrap around the Earth (<a href="https://nuclearsecrecy.github.io/Leaflet.greatCircle/example/">demo</a>).
+		</td>
+		<td>
+			<a href="https://github.com/nuclearsecrecy/">Alex Wellerstein</a>
+		</td>
+	</tr>
+
 </table>
 
 
@@ -1855,6 +1867,15 @@ When you are displaying a lot of data, these plugins will make your map look cle
 			A simple plugin to create Feature Groups that add their child layers into a parent group. Typical usage is to switch them through L.Control.Layers to dynamically add/remove groups of markers from Leaflet.markercluster. <a href="http://ghybs.github.io/Leaflet.FeatureGroup.SubGroup/examples/subGroup-markercluster-controlLayers-realworld.388.html">Demo</a>.
 		</td><td>
 			<a href="https://github.com/ghybs">ghybs</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/ZijingPeng/leaflet-tooltip-layout">leaflet-tooltip-layout</a>
+		</td><td>
+			A plugin to avoid tooltips overlapping and make it easier to find out the relationship between each tooltip and marker. <a href="https://zijingpeng.github.io/overlapping-avoided-tooltip/">Demo</a>.
+		</td><td>
+			<a href="https://github.com/ZijingPeng">Zijing Peng</a>
 		</td>
 	</tr>
 </table>
@@ -3009,7 +3030,7 @@ Display two maps at once. One of them might be a different size and zoom level, 
 	</tr>
 	<tr>
 		<td>
-			<a href="http://jieter.github.io/Leaflet.layerscontrol-minimap/">Leaflet.layerscontrol-minimap</a>
+			<a href="https://github.com/jieter/Leaflet.layerscontrol-minimap">Leaflet.layerscontrol-minimap</a>
 		</td><td>
 			Extends the default Leaflet layers control with synced minimaps.
 		</td><td>
@@ -4148,6 +4169,15 @@ Ease your development integrating Leaflet into a development framework or automa
 			Integrate Leaflet in applications made with the <a href='http://famo.us'>famo.us</a> web framework.
 		</td><td>
 			<a href="http://www.gloey.nl">Hein Rutjes</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="https://github.com/Asymmetrik/ngx-leaflet">ngx-leaflet</a>
+		</td><td>
+			Leaflet components and extensions for <a href="https://angular.io/">Angular.io</a>.
+		</td><td>
+			<a href="https://asymmetrik.com/">Asymmetrik, Ltd.</a>
 		</td>
 	</tr>
 	<tr>
