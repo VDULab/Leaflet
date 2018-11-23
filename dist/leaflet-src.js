@@ -1,5 +1,5 @@
 /* @preserve
- * Leaflet 1.3.4+feature/svg-overlay.d0096e3, a JS library for interactive maps. http://leafletjs.com
+ * Leaflet 1.3.4+feature/git-release.32d5fd0, a JS library for interactive maps. http://leafletjs.com
  * (c) 2010-2018 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 
@@ -9,7 +9,7 @@
 	(factory((global.L = {})));
 }(this, (function (exports) { 'use strict';
 
-var version = "1.3.4+feature/svg-overlay.d0096e36";
+var version = "1.3.4+feature/git-release.32d5fd04";
 
 /*
  * @namespace Util
@@ -2352,6 +2352,11 @@ function setClass(el, name) {
 // @function getClass(el: HTMLElement): String
 // Returns the element's class.
 function getClass(el) {
+	// Check if the element is an SVGElementInstance and use the correspondingElement instead
+	// (Required for linked SVG elements in IE11.)
+	if (el.correspondingElement) {
+		el = el.correspondingElement;
+	}
 	return el.className.baseVal === undefined ? el.className : el.className.baseVal;
 }
 
@@ -9315,6 +9320,87 @@ function videoOverlay(video, bounds, options) {
 }
 
 /*
+ * @class ObjectOverlay
+ * @aka L.ObjectOverlay
+ * @inherits ImageOverlay
+ *
+ * Used to load and display a svg file over specific bounds of the map. Extends `ImageOverlay`.
+ *
+ * A object overlay uses the [`<object>`](https://developer.mozilla.org/docs/Web/HTML/Element/object) HTML5 element.
+ *
+ * @example
+ *
+ * ```js
+ * var objectData = 'my_svg_file_path.svg',
+ * var objectBounds = [[0, 0], [1000, 1000]];
+ * L.objectOverlay(objectData, objectBounds ).addTo(map);
+ * ```
+ */
+
+var ObjectOverlay = ImageOverlay.extend({
+
+	// @section
+	// @aka ObjectOverlay options
+	options: {
+		// @option type: String = ''
+		// The content type of the resource specified by data. At least one of data and type must be defined.
+		type: '',
+
+		// @option name: String = ''
+		// The name of valid browsing context. Empty by default.
+		name: '',
+
+		// @option usemap: String = ''
+		// A hash-name reference to a <map> element; that is a '#' followed by the value of a name of a map element.
+		// Empty by default.
+		usemap: '',
+
+		// @option height: String = ''
+		// The height of the displayed resource, in CSS pixels. Empty by default.
+		height: '',
+
+		// @option width: String = ''
+		// The width of the display resource, in CSS pixels. Empty by default.
+		width: ''
+	},
+
+	_initImage: function () {
+		var wasElementSupplied = this._url.tagName === 'OBJECT';
+		var object = this._image = wasElementSupplied ? this._url : create$1('object');
+
+		addClass(object, 'leaflet-image-layer');
+		if (this._zoomAnimated) { addClass(object, 'leaflet-zoom-animated'); }
+
+		object.onselectstart = falseFn;
+		object.onmousemove = falseFn;
+
+		// @event load: Event
+		// Fired when the ImageOverlay layer has loaded its image
+		object.onload = bind(this.fire, this, 'load');
+		object.onerror = bind(this._overlayOnError, this, 'error');
+
+		if (wasElementSupplied) {
+			this._url = object.data;
+			return;
+		}
+
+		object.data = this._url;
+		object.type = this.options.type;
+		object.name = this.options.name;
+		object.usemap = this.options.usemap;
+		object.height = this.options.height;
+		object.width = this.options.width;
+	},
+});
+
+// @factory L.objectOverlay(data: String|HTMLObjectElement, bounds: LatLngBounds, options?: ObjectOverlay options).
+// Instantiates an image overlay object given the address of the resource as a valid URL (or a object element) and the
+// geographical bounds it is tied to.
+function objectOverlay(data, bounds, options) {
+	return new ObjectOverlay(data, bounds, options);
+}
+
+/*
  * @class DivOverlay
  * @inherits Layer
  * @aka L.DivOverlay
@@ -13879,6 +13965,8 @@ exports.ImageOverlay = ImageOverlay;
 exports.imageOverlay = imageOverlay;
 exports.VideoOverlay = VideoOverlay;
 exports.videoOverlay = videoOverlay;
+exports.ObjectOverlay = ObjectOverlay;
+exports.objectOverlay = objectOverlay;
 exports.DivOverlay = DivOverlay;
 exports.Popup = Popup;
 exports.popup = popup;
